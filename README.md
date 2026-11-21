@@ -80,21 +80,3 @@ Build the backend first, since it is where your Python and SQL skills help most;
 Learning goal: for each step, read the matching official documentation (Django, DRF, Next.js), write the code yourself first, then review it with Claude and note what you learned.
 
 Security checklist: role check on every API route, password hashing, HTTPS, rate limiting, secrets in .env, never store card data.
-
-## Recap for the next chat
-
-Paste this prompt at the start of a new conversation so another Claude can continue as a tutor; update the Status line after each work session.
-
-```text
-I am Abdoul Haki, based in Benin. I know Python, data analysis and SQL, but I am still learning backend and frontend web development.
-
-Project: a dynamic booking website for my company, Oxygen Live Event (sound, video recording, studio, training and other services). Clients reserve a service by choosing date, time and details; each service accepts at most 3 bookings per date, then the date shows as not available. Payment is automatic with a PDF invoice; registration needs email verification; the site has a public part (home, services, news, contact), a client area (profile, history, shared content, AI assistant) and an admin area. All content comes from the database.
-
-Chosen stack: Django + Django REST Framework + PostgreSQL (backend), Next.js + TypeScript + Tailwind (frontend), Django Admin with jazzmin (admin), Celery + Redis, FedaPay or KKiaPay (payment), Brevo or Resend (email), WeasyPrint (invoices), Claude API (assistant).
-
-How I want you to work: act as a tutor. Explain the concept first, give me a small task, point me to the official documentation, then review my code and explain mistakes instead of only fixing them. Give me a short recap at the end of each session that I can paste into the next chat.
-
-Status: design finished (version 1). Next step: step 1 of the roadmap, project setup (Python, virtual environment, Django project, PostgreSQL, Git). Open question: is the limit of 3 bookings per service per day, or 3 in total?
-```
-
-Recap template to ask for at the end of every session: what we did, what I learned, files created, decisions made, open questions, next step.
