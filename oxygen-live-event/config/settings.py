@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'allauth', 
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    # the list of "login checkers" Django will use, tried in order
+    "allauth.account.auth_backends.AuthenticationBackend",   # allauth's checker: email login, verification, rate limiting
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -58,7 +66,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,3 +142,22 @@ MAILERS = {
 }
 
 AUTH_USER_MODEL = "accounts.User"
+# Where Django sends visitors who must log in first (URL name from accounts/urls.py)
+LOGIN_URL = "login"
+# Where a visitor lands after a successful login (URL name)
+LOGIN_REDIRECT_URL = "home"
+
+# Where a visitor lands after logging out (URL name)
+LOGOUT_REDIRECT_URL = "home"
+
+# allauth: our User has no username field
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+# allauth: users log in with their email only
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+# allauth: sign-up form fields; * means required (no username)
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+
+# allauth: do not require email confirmation while we build (TURN BACK ON to "mandatory" before launch, see the checklist in the doc)
+ACCOUNT_EMAIL_VERIFICATION = "none"

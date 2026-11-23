@@ -46,19 +46,26 @@ class UserManager(BaseUserManager):
 
 # The custom User model: becomes the table accounts_user
 class User(AbstractUser):
-    # Allowed values for the role column: NAME = "value stored in DB", "label shown to humans"
     class Role(models.TextChoices):
         CLIENT = "client", "Client"
         ADMIN = "admin", "Admin"
 
-    # Removes the inherited username column
+    # Allowed values for the gender column (same pattern as Role)
+    class Gender(models.TextChoices):
+        MALE = "male", "Male"        # NAME = "value stored in DB", "label shown to humans"
+        FEMALE = "female", "Female"
+
     username = None
-    # Email column: must look like an email, labeled "email address", and unique (it is the login)
     email = models.EmailField("email address", unique=True)
-    # Text column up to 20 characters; blank=True lets forms leave it empty
     phone = models.CharField(max_length=20, blank=True)
-    # Text column limited to Role values; every new user is a client by default
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.CLIENT)
+
+    # Gender column: limited to the Gender choices; blank=True so it may stay empty
+    gender = models.CharField(max_length=10, choices=Gender.choices, blank=True)
+    # City column: text up to 100 characters, may stay empty
+    city = models.CharField(max_length=100, blank=True)
+    # Country column: same idea
+    country = models.CharField(max_length=100, blank=True)
 
     # Which column identifies the user at login
     USERNAME_FIELD = "email"

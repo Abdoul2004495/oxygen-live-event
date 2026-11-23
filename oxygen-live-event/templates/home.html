@@ -1,0 +1,17 @@
+{# Reuse the skeleton #}
+{% extends "base.html" %}
+
+{# Text in the browser tab #}
+{% block title %}Home{% endblock %}
+
+{# Page body #}
+{% block content %}
+    <h1>Welcome to Oxygen Live Event</h1>
+    {# user.is_authenticated is true when someone is logged in #}
+    {% if user.is_authenticated %}
+        {# first_name is empty if the user never gave one, so we show the email as a fallback #}
+        <p>Hello {{ user.first_name|default:user.email }}.</p>
+    {% else %}
+        <p>Please log in or register to book a service.</p>
+    {% endif %}
+{% endblock %}

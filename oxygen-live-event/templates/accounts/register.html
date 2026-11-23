@@ -1,0 +1,26 @@
+{# Reuse the skeleton: this must be the first line #}
+{% extends "base.html" %}
+
+{# Replace the title block #}
+{% block title %}Register{% endblock %}
+
+{# Replace the content block #}
+{% block content %}
+    <h1>Create your account</h1>
+    {# form.errors is empty when the form is valid or has not been submitted yet #}
+    {% if form.errors %}
+        {# A visible warning at the very top, before the fields #}
+        <p class="error-summary">Your account was not created. Please fix the errors below.</p>
+    {% endif %}
+    {# The form is sent with the same method our view checks for #}
+    <form method="POST">
+        {# Security token: without it Django rejects the form (error 403) #}
+        {% csrf_token %}
+        {# Prints every field of the form as a paragraph, with its errors #}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    {# Link to the login page, using its URL name #}
+    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+{% endblock %}

@@ -1,0 +1,54 @@
+{# The skeleton shared by every page #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {# Encoding so accents and special characters display correctly #}
+    <meta charset="UTF-8">
+    {# Makes the page adapt to phone screens #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# A block child pages can replace; the text inside is the default title #}
+    <title>{% block title %}Oxygen Live Event{% endblock %}</title>
+        <style>
+        /* Every list of field errors Django prints (class "errorlist") becomes red and bold */
+        .errorlist { color: #b00020; font-weight: bold; }
+        /* The summary line at the top of the form */
+        .error-summary { color: #b00020; font-weight: bold; border: 1px solid #b00020; padding: 8px; }
+        /* The one-time success message (the "success" tag comes from messages.success) */
+        .success { color: #0a7a2f; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        {# "user" is provided automatically by Django; is_authenticated is true when logged in #}
+        {% if user.is_authenticated %}
+            {# Shows the email of the logged-in user #}
+            <span>{{ user.email }}</span>
+            {# Logout must be a POST request, so it is a small form with a button #}
+            <form method="post" action="{% url 'logout' %}" style="display:inline">
+                {# Security token required in every POST form #}
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+        {% else %}
+            {# {% url 'name' %} builds the address from the name we gave in urls.py #}
+            <a href="{% url 'login' %}">Log in</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <main>
+        {# The place where each page puts its own content #}
+        {# messages is provided automatically by Django; it's empty when there is nothing to show #}
+        {% if messages %}
+            {% for message in messages %}
+                {# message.tags is "success", "error", etc., useful later for colors #}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {# The place where each page puts its own content #}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

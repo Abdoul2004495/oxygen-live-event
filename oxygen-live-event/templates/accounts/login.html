@@ -1,0 +1,27 @@
+{# Reuse the skeleton from base.html: this must be the first line #}
+{% extends "base.html" %}
+
+{# Replace the title block: text shown in the browser tab #}
+{% block title %}Log in{% endblock %}
+
+{# Replace the content block: everything the visitor sees in the page body #}
+{% block content %}
+    <h1>Log in</h1>
+
+    {# method="post" so the email and password are sent in the request body, not in the address bar #}
+    <form method="post">
+        {# Security token: without it Django rejects the form with a 403 error #}
+        {% csrf_token %}
+        {# Prints each field of the login form (Email address, Password) inside <p> tags, with their errors #}
+        {{ form.as_p }}
+        {# If the visitor was sent here from a protected page, "next" remembers where to return after login #}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+        {# The button that submits the form #}
+        <button type="submit">Log in</button>
+    </form>
+
+    {# Link to the registration page, built from the URL name given in urls.py #}
+    <p>No account yet? <a href="{% url 'register' %}">Register</a></p>
+{% endblock %}

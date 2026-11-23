@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         # None = a section without a title
         (None, {"fields": ("email", "password")}),
-        ("Personal info", {"fields": ("first_name", "last_name", "phone")}),
+        ("Personal info", {"fields": ("first_name", "last_name", "phone", "gender", "city", "country",)}),
         ("Role and permissions", {"fields": ("role", "is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
