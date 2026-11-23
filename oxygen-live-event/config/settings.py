@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'allauth', 
     'allauth.account',
+    "services"
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,9 @@ ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 
 # allauth: do not require email confirmation while we build (TURN BACK ON to "mandatory" before launch, see the checklist in the doc)
 ACCOUNT_EMAIL_VERIFICATION = "none"
+
+# the web address prefix used to serve uploaded files (pictures)
+MEDIA_URL = "/media/"
+
+# the folder on your computer where uploaded files are stored
+MEDIA_ROOT = BASE_DIR / "media"

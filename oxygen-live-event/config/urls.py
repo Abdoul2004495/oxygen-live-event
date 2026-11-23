@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 # A ready-made view that only displays a template (no logic needed for now)
 from django.views.generic import TemplateView
+from django.conf import settings                  # access to settings.py values
+from django.conf.urls.static import static       # helper that serves uploaded files in development
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,3 +30,6 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("accounts/", include("allauth.urls")),
 ]
+
+if settings.DEBUG:                                                    # only while developing
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # serve /media/ from the media folder
